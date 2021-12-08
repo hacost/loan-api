@@ -1,7 +1,7 @@
 {
-  "name": "api-store",
+  "name": "loans-money-api",
   "version": "1.0.0",
-  "description": "Api demo with node js, express js, sequelize, that is so cool...",
+  "description": "Loans-money-api with node js, express js, sequelize, that is so cool...",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
