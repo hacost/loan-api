@@ -51,7 +51,7 @@ const UserSchema = {
 // user model
 class User extends Model {
   static associate(models){
-  // one to one relations with Role table
+  // relations with Role table
   this.belongsTo(models.Role, {as: 'role'});
   
     // has one customer

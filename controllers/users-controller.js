@@ -4,8 +4,8 @@ const service = new UsersService();
 
   const findAll = async (req, res, next) => {
     try {
-      const users = await service.findAll();
-      res.json(users);
+      const data = await service.findAll();
+      res.json(data);
     } catch (error) {
       next(error)
     }

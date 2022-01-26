@@ -1,7 +1,7 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
-class CustomerService {
+class CustomersService {
   constructor(){
   }
 
@@ -22,7 +22,10 @@ class CustomerService {
   }
 
   async create(data){
-    const newRecord = await models.Customer.create(data);
+    const newRecord = await models.Customer.create(data, {
+      //to create costumer and user 
+      include: ['user']
+    });
     return newRecord;
   }
 
@@ -40,4 +43,4 @@ class CustomerService {
 
 }
 
-module.exports = CustomerService;
+module.exports = CustomersService;

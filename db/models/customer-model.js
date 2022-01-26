@@ -23,6 +23,11 @@ const CustomerSchema = {
     allowNull: true,
     type: DataTypes.STRING,
   },
+  active: {
+    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+  },
   createAt: {
     allowNull: false,
     type: DataTypes.DATE,

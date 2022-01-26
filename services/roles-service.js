@@ -1,28 +1,27 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
-class UsersService {
+class RolesService {
   constructor(){
   }
 
   async findAll(){
-    const res = await models.User.findAll({
-      //include customer data associate
-      include:['customer']   
+    const res = await models.Role.findAll({
+     // include:['user']   
     });
     return res;
   }
 
   async findById(id) {
-    const model = await models.User.findByPk(id);
+    const model = await models.Role.findByPk(id);
     if (!model) {
-      throw boom.notFound('User not found');
+      throw boom.notFound('Role not found');
     }
     return model;
   }
 
   async create(data){
-    const newRecord = await models.User.create(data);
+    const newRecord = await models.Role.create(data);
     return newRecord;
   }
 
@@ -40,4 +39,4 @@ class UsersService {
 
 }
 
-module.exports = UsersService;
+module.exports = RolesService;

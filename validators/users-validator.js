@@ -5,18 +5,18 @@ const email = Joi.string().email();
 const password = Joi.string().min(8);
 const active = Joi.boolean();
 const lastLogin = Joi.date();
-const role = Joi.number().integer();
+const roleId = Joi.number().integer();
 
 const createValidator = Joi.object({
   email: email.required(),
   password: password.required(),
-  role: role.required()
+  roleId: roleId.required()
 });
 
 const updateValidator = Joi.object({
   email: email,
   password: password,
-  role: role,
+  roleId: roleId,
   active: active,
   lastLogin: lastLogin,
 });
