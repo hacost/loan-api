@@ -6,14 +6,15 @@ class RolesService {
   }
 
   async findAll(){
-    const res = await models.Role.findAll({
-     // include:['user']   
-    });
+    const res = await models.Role.findAll();
     return res;
   }
 
   async findById(id) {
-    const model = await models.Role.findByPk(id);
+    const model = await models.Role.findByPk(id, {
+      // get users data associate
+      include:['users']  
+    });
     if (!model) {
       throw boom.notFound('Role not found');
     }
