@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const LOAN_TABLE = 'loans';
 
-//structure un database
+//structure in database
 const LoanSchema = {
   id:{
     allowNull: false,
@@ -75,6 +75,9 @@ const LoanSchema = {
     defaultValue: Date.now()
   },
   // foreign keys 
+  walletId:{
+
+  },
   customerId: {
 
   },
@@ -107,4 +110,4 @@ class Loan extends Model {
   }
 }
 
-module.exports = {Loan, LoanSchema, LOAN_TABLE}
+module.exports = {Loan, LoanSchema, LOAN_TABLE};
