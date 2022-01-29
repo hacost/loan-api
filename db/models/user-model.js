@@ -1,4 +1,4 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model, DataTypes} = require('sequelize');
 const { ROLE_TABLE } = require('./role-model');
 const USER_TABLE = 'users';
 
@@ -32,7 +32,7 @@ const UserSchema = {
     allowNull: false,
     type: DataTypes.DATE,
     field: 'create_at',
-    defaultValue: Sequelize.NOW
+    defaultValue: Date.now()
   },
   // foreign key 
   roleId: {

@@ -1,4 +1,4 @@
-const { Model, DataTypes, Sequelize } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const ROLE_TABLE = 'roles';
 
 // structure in database
@@ -23,7 +23,7 @@ const RoleSchema = {
     allowNull: false,
     type: DataTypes.DATE,
     field: 'create_at',
-    defaultValue: Sequelize.NOW
+    defaultValue: Date.now()
   },
 }
 
