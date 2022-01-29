@@ -1,5 +1,6 @@
 const express = require('express');
 const rolesRouter = require('./roles-router');
+const statusRouter = require('./status-router');
 const usersRouter = require('./users-router');
 const customersRouter = require('./customers-router');
 
@@ -11,6 +12,7 @@ function routerApi(app){
   app.use('/api/v1', router);
 
   router.use('/roles', rolesRouter);
+  router.use('/status', statusRouter);
   router.use('/users', usersRouter);
   router.use('/customers', customersRouter);
   router.use('/products', productsRouter);

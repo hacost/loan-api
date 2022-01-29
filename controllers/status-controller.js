@@ -1,5 +1,6 @@
-const RolesService = require('../services/roles-service');
-const service = new RolesService();
+const StatusService = require('../services/status-service');
+
+const service = new StatusService();
 
   const findAll = async (req, res, next) => {
     try {
