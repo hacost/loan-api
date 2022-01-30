@@ -53,6 +53,12 @@ class Coordinator extends Model {
   static associate(models){
     // one to one relations with User table
     this.belongsTo(models.User, {as: 'user'});
+    
+    // has one wallet
+    this.hasOne(models.Wallet, {
+      as: 'wallet',
+      foreignKey: 'coordinatorId'
+    });
   }
   static config(sequelize){
     return {

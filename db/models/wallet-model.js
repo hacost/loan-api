@@ -46,8 +46,8 @@ const WalletSchema = {
 
 //wallet model
 class Wallet extends Model {
-  static associate(){
-
+  static associate(models){
+    this.belongsTo(models.Coordinator, {as: 'coordinator'})
   }
   static config(sequelize){
     return {

@@ -54,11 +54,11 @@ class User extends Model {
   // relations with Role table
   this.belongsTo(models.Role, {as: 'role'});
   
-    // has one customer
-    this.hasOne(models.Customer, {
-      as: 'customer',
-      foreignKey: 'userId'
-    });
+  // has one customer
+  this.hasOne(models.Customer, {
+    as: 'customer',
+    foreignKey: 'userId'
+  });
 
   }
   static config(sequelize){
