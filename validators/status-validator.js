@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const id = Joi.number().integer();
 const name = Joi.string().min(3).max(30);
-
+const active = Joi.boolean();
 
 const createValidator = Joi.object({
   name: name.required(),
@@ -10,6 +10,7 @@ const createValidator = Joi.object({
 
 const updateValidator = Joi.object({
   name: name,
+  active: active,
 });
 
 const getValidator = Joi.object({

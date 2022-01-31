@@ -1,7 +1,7 @@
 const express = require('express');
 const validatorHandler = require('../middleware/validator-handler');
-const controller = require('../controllers/coordinators-controller');
-const { createValidator, updateValidator, getValidator } = require('../validators/coordinators-validator');
+const controller = require('../controllers/wallets-controller');
+const { createValidator, updateValidator, getValidator } = require('../validators/wallets-validator');
 
 const router = express.Router();
 

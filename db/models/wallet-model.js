@@ -53,7 +53,7 @@ class Wallet extends Model {
     return {
       sequelize,
       tableName: WALLET_TABLE,
-      modelName: 'wallet',
+      modelName: 'Wallet',
       timestamps: false
     }
   }

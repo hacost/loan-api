@@ -4,6 +4,7 @@ const statusRouter = require('./status-router');
 const usersRouter = require('./users-router');
 const customersRouter = require('./customers-router');
 const coordinatorsRouter = require('./coordinators-router');
+const walletsRouter = require('./wallets-router');
 
 const productsRouter = require('./productsRouter');
 const categoriesRouter = require('./categoriesRouter');
@@ -18,6 +19,8 @@ function routerApi(app){
   router.use('/users', usersRouter);
   router.use('/customers', customersRouter);
   router.use('/coordinators', coordinatorsRouter);
+  router.use('/wallets', walletsRouter);
+
   router.use('/products', productsRouter);
   router.use('/categories', categoriesRouter);
 }
