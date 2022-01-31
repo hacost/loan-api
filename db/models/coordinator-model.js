@@ -48,17 +48,17 @@ const CoordinatorSchema = {
     onDelete: 'SET NULL'
   }
 }
+
 // coordinator model
 class Coordinator extends Model {
   static associate(models){
     // one to one relations with User table
     this.belongsTo(models.User, {as: 'user'});
     
-    // has one wallet
-    this.hasOne(models.Wallet, {
-      as: 'wallet',
-      foreignKey: 'coordinatorId'
-    });
+    //  this.hasMany(models.Wallet, {
+    //   as: 'wallets',
+    //   foreignKey: 'coordinatorId'
+    // }) 
   }
   static config(sequelize){
     return {
@@ -71,4 +71,3 @@ class Coordinator extends Model {
 }
 
 module.exports = { Coordinator, CoordinatorSchema, COORDINATOR_TABLE };
-

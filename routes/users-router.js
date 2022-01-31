@@ -1,6 +1,6 @@
 const express = require('express');
-const controller = require('../controllers/users-controller');
 const validatorHandler = require('../middleware/validator-handler');
+const controller = require('../controllers/users-controller');
 const { createValidator, updateValidator, getValidator } = require('../validators/users-validator');
 
 const router = express.Router();

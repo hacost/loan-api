@@ -8,14 +8,14 @@ const active = Joi.boolean();
 // data user
 const email = Joi.string().email();
 const password = Joi.string().min(8);
-const roleId = Joi.number().integer();
 const userId = Joi.number().integer();
+const roleId = Joi.number().integer();
 
 const createValidator = Joi.object({
   name: name.required(),
   lastName: lastName.required(),
   phone: phone.required(),
-  // to create customer and user
+  // to create coordinator and user
   user: Joi.object({
     email: email.required(),
     password: password.required(),
