@@ -1,5 +1,5 @@
-const StatusService = require('../services/status-service');
-const service = new StatusService();
+const Service = require('../services/status-service');
+const service = new Service();
 
   const findAll = async (req, res, next) => {
     try {

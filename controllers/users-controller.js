@@ -1,6 +1,6 @@
-const UsersService = require('../services/users-service');
+const Service = require('../services/users-service');
 
-const service = new UsersService();
+const service = new Service();
 
   const findAll = async (req, res, next) => {
     try {
