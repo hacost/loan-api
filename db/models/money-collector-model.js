@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const { USER_TABLE } = require('./user-model');
+const { WALLET_TABLE } = require('./wallet-model');
 const MONEY_COLLECTOR_TABLE = 'money_collectors';
 
 // structure in database
@@ -48,7 +49,15 @@ const MoneyCollectorSchema = {
     onDelete: 'SET NULL'
   },
   walletId:{
-    
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'wallet_id',
+    references: {
+      model: WALLET_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   }
 
 }
@@ -57,6 +66,7 @@ class MoneyCollector extends Model {
   static associate(models){
     // one to one relations with User table
     this.belongsTo(models.User, {as: 'user'});
+    this.belongsTo(models.Wallet, {as: 'wallet'});
   }
   static config(sequelize){
     return {

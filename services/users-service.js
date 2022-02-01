@@ -7,8 +7,12 @@ class UsersService {
 
   async findAll(){
     const res = await models.User.findAll({
-      //get customer data associate
-      include:['customer']   
+      // only active = true example 
+      /*      
+      include: ['customer'],
+      where: { active: true } 
+      */
+     include: ['customer']
     });
     return res;
   }

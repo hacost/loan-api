@@ -1,29 +1,34 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
-class RolesService {
+class MoneyCollectorsService {
   constructor(){
   }
 
   async findAll(){
-    const res = await models.Role.findAll();
+    const res = await models.MoneyCollector.findAll({
+      //include user data associate
+      include:['user']
+    });
     return res;
   }
 
   async findById(id) {
-    const model = await models.Role.findByPk(id, {
-      include: ['users']
-    })
-      // get users data associate
-
+    const model = await models.MoneyCollector.findByPk(id,{
+      // get payments data associate
+      include:['user', 'wallet']  
+    });
     if (!model) {
-      throw boom.notFound('Role not found');
+      throw boom.notFound('Money Collector not found');
     }
     return model;
   }
 
   async create(data){
-    const newRecord = await models.Role.create(data);
+    const newRecord = await models.MoneyCollector.create(data, {
+      //to create Coordinator and user 
+      include: ['user']
+    });
     return newRecord;
   }
 
@@ -41,4 +46,4 @@ class RolesService {
 
 }
 
-module.exports = RolesService;
+module.exports = MoneyCollectorsService;
