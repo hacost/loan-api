@@ -6,7 +6,9 @@ class StatusService {
   }
 
   async findAll(){
-    const res = await models.Status.findAll();
+    const res = await models.Status.findAll({
+      where: { active: true } 
+    });
     return res;
   }
 

@@ -6,7 +6,9 @@ class RolesService {
   }
 
   async findAll(){
-    const res = await models.Role.findAll();
+    const res = await models.Role.findAll({
+      where: { active: true } 
+    });
     return res;
   }
 

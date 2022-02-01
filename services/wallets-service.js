@@ -8,7 +8,8 @@ class WalletsService {
   async findAll(){
     const res = await models.Wallet.findAll({
       //get coordinator data associate
-      include:['coordinator']   
+      include:['coordinator'],
+      where: { active: true }    
     });
     return res;
   }
@@ -16,7 +17,7 @@ class WalletsService {
   async findById(id) {
     const model = await models.Wallet.findByPk(id, {
       // get coordinator data associate
-      include:['coordinator', 'money-collectors']  
+      include:['coordinator', 'money-collectors']
     });
     if (!model) {
       throw boom.notFound('Wallet not found');

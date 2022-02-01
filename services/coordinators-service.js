@@ -8,7 +8,8 @@ class CoordinatorsService {
   async findAll(){
     const res = await models.Coordinator.findAll({
       //include user data associate
-      include:['user']
+      include:['user'],
+      where: { active: true } 
     });
     return res;
   }
@@ -16,7 +17,7 @@ class CoordinatorsService {
   async findById(id) {
     const model = await models.Coordinator.findByPk(id,{
       // get user and wallets data associate
-      include:['user', 'wallets']  
+      include:['user', 'wallets']
     });
     if (!model) {
       throw boom.notFound('Coordinator not found');

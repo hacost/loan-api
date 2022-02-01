@@ -7,12 +7,8 @@ class UsersService {
 
   async findAll(){
     const res = await models.User.findAll({
-      // only active = true example 
-      /*      
       include: ['customer'],
       where: { active: true } 
-      */
-     include: ['customer']
     });
     return res;
   }
@@ -20,7 +16,7 @@ class UsersService {
   async findById(id) {
     const model = await models.User.findByPk(id, {
       // get role and customer data associate
-      include:['role', 'customer']  
+      include:['role', 'customer']
     });
     if (!model) {
       throw boom.notFound('User not found');

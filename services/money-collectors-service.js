@@ -8,7 +8,8 @@ class MoneyCollectorsService {
   async findAll(){
     const res = await models.MoneyCollector.findAll({
       //include user data associate
-      include:['user']
+      include:['user'],
+      where: { active: true } 
     });
     return res;
   }
@@ -16,7 +17,7 @@ class MoneyCollectorsService {
   async findById(id) {
     const model = await models.MoneyCollector.findByPk(id,{
       // get payments data associate
-      include:['user', 'wallet']  
+      include:['user', 'wallet']
     });
     if (!model) {
       throw boom.notFound('Money Collector not found');
