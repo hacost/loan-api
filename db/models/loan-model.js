@@ -39,6 +39,11 @@ const LoanSchema = {
     field:'total_paid',
     defaultValue: 0
   },
+  approveReason:{
+    allowNull: false,
+    type:DataTypes.TEXT,
+    field:'approve_reason'
+  },
   cancellationReason:{
     allowNull: false,
     type:DataTypes.TEXT,

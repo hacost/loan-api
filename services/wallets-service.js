@@ -17,7 +17,12 @@ class WalletsService {
   async findById(id) {
     const model = await models.Wallet.findByPk(id, {
       // get coordinator data associate
-      include:['coordinator', 'money-collectors']
+      include: [
+        {
+          association: 'coordinator',
+          include: ['user']
+        }
+      ]
     });
     if (!model) {
       throw boom.notFound('Wallet not found');
