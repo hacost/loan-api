@@ -53,6 +53,11 @@ class Customer extends Model {
   static associate(models){
     // one to one relations with User table
     this.belongsTo(models.User, {as: 'user'});
+    // has one loan
+    this.hasOne(models.Loan, {
+    as: 'loan',
+    foreignKey: 'customerId'
+  });
   }
   static config(sequelize){
     return {

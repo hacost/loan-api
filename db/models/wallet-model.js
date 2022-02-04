@@ -48,6 +48,10 @@ const WalletSchema = {
 class Wallet extends Model {
   static associate(models){
     this.belongsTo(models.Coordinator, {as: 'coordinator'});
+    this.hasMany(models.Loan, {
+      as: 'loans',
+      foreignKey: 'walletId'
+    });
     this.hasMany(models.MoneyCollector, {
       as: 'money-collectors',
       foreignKey: 'walletId'

@@ -173,6 +173,11 @@ class Loan extends Model {
     this.belongsTo(models.Coordinator, {as: 'approved-by'});
     this.belongsTo(models.Coordinator, {as: 'canceled-by'});
     this.belongsTo(models.Status, {as: 'status'});
+
+    this.hasMany(models.Payment, {
+      as: 'payments',
+      foreignKey: 'loanId'
+    })
   }
 
   static config(sequelize){

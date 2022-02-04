@@ -22,6 +22,7 @@ function setupModels(sequelize) {
   Coordinator.associate(sequelize.models);
   Wallet.associate(sequelize.models);
   MoneyCollector.associate(sequelize.models);
+  Status.associate(sequelize.models);
 }
 
 module.exports = setupModels;

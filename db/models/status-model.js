@@ -29,7 +29,11 @@ const StatusSchema = {
 
 // status model
 class Status extends Model {
-  static associate(){
+  static associate(models){
+    this.hasMany(models.Loan, {
+      as: 'status',
+      foreignKey: 'statusId'
+    });
   }
   static config(sequelize){
     return {
