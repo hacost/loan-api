@@ -1,4 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
+const { LOAN_TABLE } = require('./loan-model');
+const { COORDINATOR_TABLE } = require('./coordinator-model');
+const { CUSTOMER_TABLE } = require('./customer-model');
+const { MONEY_COLLECTOR_TABLE } = require('./money-collector-model');
+const { STATUS_TABLE } = require('./status-model');
 const PAYMENT_TABLE = 'payments';
 
 //structure in database
@@ -49,23 +54,70 @@ const PaymentSchema = {
   },
   // foreign keys 
   loanId:{
-
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'loan_id',
+    references: {
+      model: LOAN_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL' 
   },
-  paymentCollector:{
-
+  customerId:{
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'customer_id',
+    references: {
+      model: CUSTOMER_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
+  },
+  moneyCollectorId:{
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'money_collector_id',
+    references: {
+      model: MONEY_COLLECTOR_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   paymentReceivedBy:{
-
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'payment-received-by',
+    references: {
+      model: COORDINATOR_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   },
   statusId:{
-    
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    field: 'status_id',
+    references: {
+      model: STATUS_TABLE,
+      key: 'id'
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL' 
   }
 }
 
 // Payment model
 class Payment extends Model {
-  static associate(){
-
+  static associate(models){
+    this.belongsTo(models.Loan, {as: 'loan'});
+    this.belongsTo(models.Customer, {as: 'customer'});
+    this.belongsTo(models.MoneyCollector, {as: 'money-collector'});
+    this.belongsTo(models.Coordinator, {as: 'payment-received-by'});
+    this.belongsTo(models.Status, {as: 'status'});
   }
   static config(sequelize){
     return {
