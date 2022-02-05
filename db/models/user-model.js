@@ -59,7 +59,14 @@ class User extends Model {
     as: 'customer',
     foreignKey: 'userId'
   });
-  
+  this.hasOne(models.Coordinator, {
+    as: 'coordinator',
+    foreignKey: 'userId'
+  });
+  this.hasOne(models.MoneyCollector, {
+    as: 'money-collector',
+    foreignKey: 'userId'
+  });  
   }
   static config(sequelize){
     return {
