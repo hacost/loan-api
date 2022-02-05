@@ -55,9 +55,13 @@ class Customer extends Model {
     this.belongsTo(models.User, {as: 'user'});
     // has one loan
     this.hasOne(models.Loan, {
-    as: 'loan',
-    foreignKey: 'customerId'
-  });
+      as: 'loan',
+      foreignKey: 'customer_id'
+    });
+    this.hasMany(models.Payment, {
+      as: 'payments',
+      foreignKey: 'customer_id'
+    });
   }
   static config(sequelize){
     return {

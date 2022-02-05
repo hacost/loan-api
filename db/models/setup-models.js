@@ -19,10 +19,10 @@ function setupModels(sequelize) {
   User.associate(sequelize.models);
   Customer.associate(sequelize.models);
   Role.associate(sequelize.models);
+  Status.associate(sequelize.models);
   Coordinator.associate(sequelize.models);
   Wallet.associate(sequelize.models);
   MoneyCollector.associate(sequelize.models);
-  Status.associate(sequelize.models);
 }
 
 module.exports = setupModels;

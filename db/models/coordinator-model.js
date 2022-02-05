@@ -54,22 +54,26 @@ class Coordinator extends Model {
   static associate(models){
     // one to one relations with User table
     this.belongsTo(models.User, {as: 'user'});
-    
+
     this.hasMany(models.Wallet, {
       as: 'wallets',
-      foreignKey: 'coordinatorId'
+      foreignKey: 'coordinator_id'
     });
     this.hasMany(models.Loan, {
       as: 'loans',
-      foreignKey: 'coordinatorId'
+      foreignKey: 'coordinator_id'
     });
     this.hasMany(models.Loan, {
       as: 'approved-loans',
-      foreignKey: 'approvedBy'
+      foreignKey: 'approved_by'
     });
     this.hasMany(models.Loan, {
       as: 'canceled-loans',
-      foreignKey: 'canceledBy'
+      foreignKey: 'canceled_by'
+    });
+    this.hasMany(models.Payment, {
+      as: 'payments',
+      foreignKey: 'coordinator_id'
     });
   }
   static config(sequelize){

@@ -176,8 +176,8 @@ class Loan extends Model {
 
     this.hasMany(models.Payment, {
       as: 'payments',
-      foreignKey: 'loanId'
-    })
+      foreignKey: 'loan_id'
+    });
   }
 
   static config(sequelize){

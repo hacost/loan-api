@@ -67,10 +67,15 @@ class MoneyCollector extends Model {
     // one to one relations with User table
     this.belongsTo(models.User, {as: 'user'});
     this.belongsTo(models.Wallet, {as: 'wallet'});
+    // has many relations
     this.hasMany(models.Loan, {
       as: 'loans',
-      foreignKey: 'moneyCollectorId'
+      foreignKey: 'money_collector_id'
     });
+    this.hasMany(models.Payment, {
+      as: 'payments',
+      foreignKey: 'money_collector_id'
+    });    
   }
   static config(sequelize){
     return {

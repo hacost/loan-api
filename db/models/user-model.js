@@ -59,7 +59,7 @@ class User extends Model {
     as: 'customer',
     foreignKey: 'userId'
   });
-
+  
   }
   static config(sequelize){
     return {

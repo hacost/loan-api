@@ -86,10 +86,11 @@ const PaymentSchema = {
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
   },
-  paymentReceivedBy:{
+  // payment received by
+  coordinatorId:{
     allowNull: false,
     type: DataTypes.INTEGER,
-    field: 'payment-received-by',
+    field: 'coordinator_id',
     references: {
       model: COORDINATOR_TABLE,
       key: 'id'
@@ -116,7 +117,7 @@ class Payment extends Model {
     this.belongsTo(models.Loan, {as: 'loan'});
     this.belongsTo(models.Customer, {as: 'customer'});
     this.belongsTo(models.MoneyCollector, {as: 'money-collector'});
-    this.belongsTo(models.Coordinator, {as: 'payment-received-by'});
+    this.belongsTo(models.Coordinator, {as: 'coordinator'});
     this.belongsTo(models.Status, {as: 'status'});
   }
   static config(sequelize){
