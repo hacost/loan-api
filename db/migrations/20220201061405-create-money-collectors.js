@@ -1,13 +1,13 @@
 'use strict';
 
-const { LoanSchema, LOAN_TABLE } = require('./../models/loan-model')
+const { MoneyCollectorSchema, MONEY_COLLECTOR_TABLE } = require('./../models/money-collector-model')
 
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.createTable(LOAN_TABLE, LoanSchema);
+    await queryInterface.createTable(MONEY_COLLECTOR_TABLE, MoneyCollectorSchema);
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable(LOAN_TABLE)
+    await queryInterface.dropTable(MONEY_COLLECTOR_TABLE)
   }
 };

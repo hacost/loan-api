@@ -65,11 +65,11 @@ class Coordinator extends Model {
     });
     this.hasMany(models.Loan, {
       as: 'approved-loans',
-      foreignKey: 'approved_by'
+      foreignKey: 'approved_id'
     });
     this.hasMany(models.Loan, {
       as: 'canceled-loans',
-      foreignKey: 'canceled_by'
+      foreignKey: 'canceled_id'
     });
     this.hasMany(models.Payment, {
       as: 'payments',

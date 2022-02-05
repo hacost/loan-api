@@ -122,9 +122,9 @@ const LoanSchema = {
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
   },
-  approvedBy: {
+  approvedId: {
     type: DataTypes.INTEGER,
-    field: 'approved_by',
+    field: 'approved_id',
     references: {
       model: COORDINATOR_TABLE,
       key: 'id'
@@ -132,9 +132,9 @@ const LoanSchema = {
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
   },
-  canceledBy: {
+  canceledId: {
     type: DataTypes.INTEGER,
-    field: 'canceled_by',
+    field: 'canceled_id',
     references: {
       model: COORDINATOR_TABLE,
       key: 'id'
@@ -162,8 +162,8 @@ class Loan extends Model {
     this.belongsTo(models.Customer, {as: 'customer'});
     this.belongsTo(models.MoneyCollector, {as: 'money-collector'});
     this.belongsTo(models.Coordinator, {as: 'coordinator'});
-    this.belongsTo(models.Coordinator, {as: 'approved-by'});
-    this.belongsTo(models.Coordinator, {as: 'canceled-by'});
+    this.belongsTo(models.Coordinator, {as: 'approved'});
+    this.belongsTo(models.Coordinator, {as: 'canceled'});
     this.belongsTo(models.Status, {as: 'status'});
 
     this.hasMany(models.Payment, {
