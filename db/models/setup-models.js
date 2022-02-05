@@ -5,6 +5,7 @@ const { Status, StatusSchema } = require('./status-model');
 const { Coordinator, CoordinatorSchema } = require('./coordinator-model');
 const { Wallet, WalletSchema} = require('./wallet-model');
 const { MoneyCollector, MoneyCollectorSchema } = require('./money-collector-model');
+const { Loan, LoanSchema } = require('./loan-model');
 
 function setupModels(sequelize) {
   User.init(UserSchema, User.config(sequelize));
@@ -14,6 +15,7 @@ function setupModels(sequelize) {
   Coordinator.init(CoordinatorSchema, Coordinator.config(sequelize));
   Wallet.init(WalletSchema, Wallet.config(sequelize));
   MoneyCollector.init(MoneyCollectorSchema, MoneyCollector.config(sequelize));
+  Loan.init(LoanSchema, Loan.config(sequelize));
 
   //Run associates 
   User.associate(sequelize.models);
@@ -23,6 +25,7 @@ function setupModels(sequelize) {
   Coordinator.associate(sequelize.models);
   Wallet.associate(sequelize.models);
   MoneyCollector.associate(sequelize.models);
+  Loan.associate(sequelize.models)
 }
 
 module.exports = setupModels;

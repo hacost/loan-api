@@ -47,7 +47,7 @@ const LoanSchema = {
   approveReason:{
     allowNull: false,
     type:DataTypes.TEXT,
-    field:'approve_reason'
+    field:'approve_reason',
   },
   cancellationReason:{
     allowNull: false,
@@ -69,20 +69,17 @@ const LoanSchema = {
   requestAt: {
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'request_at',
-    defaultValue: Date.now()
+    field: 'request_at'
   },
   approveAt: {
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'approve_at',
-    defaultValue: Date.now()
+    field: 'approve_at'
   },
   cancelAt: {
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'cancel_at',
-    defaultValue: Date.now()
+    field: 'cancel_at'
   },
   // foreign keys 
   walletId:{
