@@ -12,8 +12,8 @@ const walletId = Joi.number().integer();
 const customerId = Joi.number().integer();
 const moneyCollectorId = Joi.number().integer();
 const coordinatorId = Joi.number().integer();
-const approvedBy = Joi.number().integer();
-const canceledBy = Joi.number().integer();
+const approvedId = Joi.number().integer();
+const canceledId = Joi.number().integer();
 const statusId = Joi.number().integer();
 
 const active = Joi.boolean();
@@ -41,8 +41,8 @@ const updateValidator = Joi.object({
   customerId:customerId,
   moneyCollectorId: moneyCollectorId,
   coordinatorId:coordinatorId,
-  approvedBy: approvedBy,
-  canceledBy: canceledBy,
+  approvedId: approvedId,
+  canceledId: canceledId,
   statusId: statusId,
   active: active
 });
