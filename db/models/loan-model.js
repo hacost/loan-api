@@ -45,12 +45,10 @@ const LoanSchema = {
     defaultValue: 0
   },
   approveReason:{
-    allowNull: false,
     type:DataTypes.TEXT,
     field:'approve_reason',
   },
   cancellationReason:{
-    allowNull: false,
     type:DataTypes.TEXT,
     field:'cancellation_reason'
   },
@@ -67,17 +65,14 @@ const LoanSchema = {
     defaultValue: Date.now()
   },
   requestAt: {
-    allowNull: false,
     type: DataTypes.DATE,
     field: 'request_at'
   },
   approveAt: {
-    allowNull: false,
     type: DataTypes.DATE,
     field: 'approve_at'
   },
   cancelAt: {
-    allowNull: false,
     type: DataTypes.DATE,
     field: 'cancel_at'
   },

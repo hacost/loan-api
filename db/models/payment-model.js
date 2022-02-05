@@ -37,20 +37,18 @@ const PaymentSchema = {
     field: 'create_at',
     defaultValue: Date.now()
   },
-  scheduledPaymentDate:{
+  scheduledPaymentAt:{
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'scheduled_payment_date'
+    field: 'scheduled_payment_at'
   },
-  paymentDate:{
-    allowNull: false,
+  paymentAt:{
     type: DataTypes.DATE,
-    field: 'payment_date'
+    field: 'payment_at'
   },
-  paymentReceivedDate:{
-    allowNull: false,
+  paymentReceivedAt:{
     type: DataTypes.DATE,
-    field: 'payment_received_date'
+    field: 'payment_received_at'
   },
   // foreign keys 
   loanId:{
