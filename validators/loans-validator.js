@@ -26,7 +26,6 @@ const createValidator = Joi.object({
   moneyCollectorId: moneyCollectorId.required(),
   coordinatorId: coordinatorId.required(),
   statusId: statusId.required(),
-  active: active.required()
 });
 
 const updateValidator = Joi.object({
