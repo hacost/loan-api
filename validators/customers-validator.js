@@ -5,6 +5,9 @@ const name = Joi.string().min(3).max(30);
 const lastName = Joi.string();
 const phone = Joi.string();
 const active = Joi.boolean();
+const limit = Joi.number().integer();
+const offset = Joi.number().integer();
+
 // data user
 const email = Joi.string().email();
 const password = Joi.string().min(8);
@@ -35,5 +38,10 @@ const getValidator = Joi.object({
   id: id.required(),
 });
 
+const queryParamsValidator = Joi.object({
+  limit,
+  offset
+})
 
-module.exports = {createValidator, updateValidator, getValidator}; 
+
+module.exports = {createValidator, updateValidator, getValidator, queryParamsValidator}; 

@@ -1,16 +1,31 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
+
 class CustomersService {
+
   constructor(){
   }
 
-  async findAll(){
-    const res = await models.Customer.findAll({
-      //include user data associate
-      include:['user'],
-      where: { active: true } 
-    });
+  async findAll(query){
+    const { limit, offset } = query;
+    const options = {
+      // include data associate
+      include: [
+        {
+          association: 'user',
+          include: ['role'],
+          where: { active: true }, 
+        },
+      ]
+    }
+    // pagination
+    if (limit && offset) {
+      options.limit = limit;
+      options.offset = offset;
+    }
+
+    const res = await models.Customer.findAll(options);
     return res;
   }
 
