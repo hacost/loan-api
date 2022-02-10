@@ -11,5 +11,4 @@ router.post('/', validatorHandler(createValidator, 'body'), controller.create);
 router.patch('/:id', validatorHandler(getValidator, 'params'), validatorHandler(updateValidator, 'body'), controller.update);
 router.delete('/:id', validatorHandler(getValidator, 'params'), controller.delete_);
 
-
 module.exports = router;

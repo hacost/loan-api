@@ -14,12 +14,7 @@ class RolesService {
   async findById(id) {
     const model = await models.Role.findByPk(id, {
       // get users data associate
-      include: [
-        {
-          association: 'users',
-          where: { active: true },
-        },
-      ],
+      include: ['users']
     });
     if (!model) {
       throw boom.notFound('Role not found');
