@@ -5,10 +5,33 @@ class LoansService {
   constructor(){
   }
 
-  async findAll(){
-    const res = await models.Loan.findAll({
-      where: { active: true } 
-    });
+  async findAll(query){
+    const { limit, offset, amount, statusId } = query;
+    const options = {
+      // include data associate
+      include: [
+        {
+          association: 'customer',
+          // where to customer
+          where: {active: true}
+        },
+      ],
+      // where to loan
+      where: {}
+    }
+    // pagination
+    if (limit && offset) {
+      options.limit = limit;
+      options.offset = offset;
+    }
+    if (amount) {
+      options.where.amount = amount;
+    }
+    if (statusId) {
+      options.where.statusId = statusId;
+    }
+    options.where.active = true;
+    const res = await models.Loan.findAll(options);
     return res;
   }
 

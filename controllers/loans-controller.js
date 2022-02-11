@@ -4,7 +4,7 @@ const service = new Service();
 
   const findAll = async (req, res, next) => {
     try {
-      const data = await service.findAll();
+      const data = await service.findAll(req.query);
       res.json(data);
     } catch (error) {
       next(error)

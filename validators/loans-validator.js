@@ -17,6 +17,9 @@ const canceledId = Joi.number().integer();
 const statusId = Joi.number().integer();
 
 const active = Joi.boolean();
+//pagination
+const limit = Joi.number().integer();
+const offset = Joi.number().integer();
 
 const createValidator = Joi.object({
   amount: amount.required(),
@@ -50,4 +53,11 @@ const getValidator = Joi.object({
   id: id.required(),
 });
 
-module.exports = {createValidator, updateValidator, getValidator}; 
+const queryParamsValidator = Joi.object({
+  amount: amount,
+  statusId: statusId,
+  limit: limit,
+  offset: offset
+})
+
+module.exports = {createValidator, updateValidator, getValidator, queryParamsValidator}; 
