@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const id = Joi.number().integer();
-const amount = Joi.number().precision(2);
+const amount = Joi.number().precision(2).min(1000);
 const approveReason = Joi.string().min(10);
 const cancellationReason = Joi.string().min(10);
 // dates
