@@ -60,5 +60,18 @@ const service = new Service();
    }
   }
 
+  const approve = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const changes = req.body;
+      const record = await service.approve(id, changes);
+      res.json({
+        message: 'Update record',
+        record
+      })
+    } catch (error) {
+      next(error);
+    }
+   }
 
-module.exports = {findAll, findById, create, update, delete_};
+module.exports = {findAll, findById, create, update, delete_, approve};

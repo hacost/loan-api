@@ -16,6 +16,9 @@ class LoansService {
     if (!model) {
       throw boom.notFound('Loan not found');
     }
+    if (model.active === false) {
+      throw boom.notFound('Loan not found');
+    }
     return model;
   }
 
@@ -41,6 +44,13 @@ class LoansService {
     return { id };
   }
 
+  async approve(id, changes) {
+    changes.statusId = 4;
+    changes.approveAt = Date.now();
+    const model = await this.findById(id);  
+    const res = await model.update(changes)
+    return res;
+  }
   // Business Logic
   async findByCustomer(customerId){
     const options = {

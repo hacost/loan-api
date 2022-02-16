@@ -4,9 +4,7 @@ const id = Joi.number().integer();
 const amount = Joi.number().precision(2).min(1000);
 const approveReason = Joi.string().min(10);
 const cancellationReason = Joi.string().min(10);
-// dates
-const approveAt = Joi.date().timestamp();
-const cancelAt = Joi.date().timestamp();
+
 // foreign keys
 const walletId = Joi.number().integer();
 const customerId = Joi.number().integer();
@@ -35,9 +33,6 @@ const updateValidator = Joi.object({
   amount:amount,
   approveReason: approveReason,
   cancellationReason: cancellationReason,
-  // dates
-  approveAt: approveAt,
-  cancelAt: cancelAt,
   // foreign keys
   walletId: walletId,
   customerId:customerId,
@@ -58,6 +53,11 @@ const queryParamsValidator = Joi.object({
   statusId: statusId,
   limit: limit,
   offset: offset
-})
+});
 
-module.exports = {createValidator, updateValidator, getValidator, queryParamsValidator}; 
+const approveValidator = Joi.object({
+  approveReason: approveReason.required(),
+  approvedId: approvedId.required(),
+});
+
+module.exports = {createValidator, updateValidator, getValidator, queryParamsValidator, approveValidator}; 
