@@ -8,6 +8,63 @@ class LoansService {
   }
 
   async findAll(query){
+    return await models.Loan.findAll( await this.paginationAndFilters(query));
+  }
+
+  async findById(id) {
+    const model = await models.Loan.findByPk(id);
+    if (!model) {
+      throw boom.notFound('Loan not found');
+    }
+    return model;
+  }
+
+  async create(data){
+    const loans = await this.findByCustomer(data.customerId);
+    // check if the client does not have any active loan without paying
+    if (loans.length == 0 ) {
+      return await models.Loan.create(await this.loanCalculate(data));   
+    } else {
+      throw boom.notAcceptable('Have Loan active...');
+    }
+  }
+
+  async update(id, changes) {
+    const model = await this.findById(id);
+    const res = await model.update(changes)
+    return res;
+  }
+  
+  async delete(id) {
+    const model = await this.findById(id);
+    await model.destroy();
+    return { id };
+  }
+
+  // Business Logic
+  async findByCustomer(customerId){
+    const options = {
+      where: {}
+    }
+    options.where.customerId = customerId,
+    options.where.statusId = {
+      [Op.notIn]: [1, 7]
+    } 
+    options.where.active = true;
+    const res = await models.Loan.findAll(options);
+    return res;
+  }
+
+  async loanCalculate(data) {
+    // calculate
+    data.totalDebt = data.amount * 1.15;
+    data.balance = data.totalDebt;
+    data.profit = (data.amount * 15) / 100;
+    data.dailyPay = data.totalDebt / 23;
+    return data;
+  }
+
+  async paginationAndFilters(query){
     const { limit, offset, amount, statusId } = query;
     const options = {
       // include data associate
@@ -34,62 +91,9 @@ class LoansService {
       options.where.statusId = statusId;
     }
     options.where.active = true;
-    const res = await models.Loan.findAll(options);
-    return res;
-  }
 
-  async findById(id) {
-    const model = await models.Loan.findByPk(id);
-    if (!model) {
-      throw boom.notFound('Loan not found');
-    }
-    return model;
+    return options;
   }
-
-  async create(data){
-    // get loans
-    const loans = await this.findByCustomer(data.customerId);
-    // check if the client does not have any active loan without paying
-    if (loans.length == 0 ) {
-      // calculate 
-      data.totalDebt = data.amount * 1.15;
-      data.balance = data.totalDebt;
-      data.profit = ((data.amount * 15) / 100);
-      data.dailyPay = data.totalDebt / 23;
-      
-      const newRecord = await models.Loan.create(data);   
-      return newRecord;   
-    } else {
-      throw boom.notAcceptable('Have Loan active...');
-    }
-  }
-
-  async update(id, changes) {
-    const model = await this.findById(id);
-    const res = await model.update(changes)
-    return res;
-  }
-  
-  async delete(id) {
-    const model = await this.findById(id);
-    await model.destroy();
-    return { id };
-  }
-
-  // Bussiness Logic
-  async findByCustomer(customerId){
-    const options = {
-      where: {}
-    }
-    options.where.customerId = customerId,
-    options.where.statusId = {
-      [Op.notIn]: [1, 7]
-    } 
-    options.where.active = true;
-    const res = await models.Loan.findAll(options);
-    return res;
-  }
-
 }
 
 module.exports = LoansService;
