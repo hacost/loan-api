@@ -1,5 +1,7 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
+const { Op } = require('sequelize');
+
 
 class LoansService {
   constructor(){
@@ -45,16 +47,21 @@ class LoansService {
   }
 
   async create(data){
-    // before creating check if the client does not have any active loan without paying
-
-    // calculate 
-    data.totalDebt = data.amount * 1.15;
-    data.balance = data.totalDebt;
-    data.profit = ((data.amount * 15) / 100);
-    data.dailyPay = data.totalDebt / 23;
-    
-    const newRecord = await models.Loan.create(data);
-    return newRecord;
+    // get loans
+    const loans = await this.findByCustomer(data.customerId);
+    // check if the client does not have any active loan without paying
+    if (loans.length == 0 ) {
+      // calculate 
+      data.totalDebt = data.amount * 1.15;
+      data.balance = data.totalDebt;
+      data.profit = ((data.amount * 15) / 100);
+      data.dailyPay = data.totalDebt / 23;
+      
+      const newRecord = await models.Loan.create(data);   
+      return newRecord;   
+    } else {
+      throw boom.notAcceptable('Have Loan active...');
+    }
   }
 
   async update(id, changes) {
@@ -67,6 +74,20 @@ class LoansService {
     const model = await this.findById(id);
     await model.destroy();
     return { id };
+  }
+
+  // Bussiness Logic
+  async findByCustomer(customerId){
+    const options = {
+      where: {}
+    }
+    options.where.customerId = customerId,
+    options.where.statusId = {
+      [Op.notIn]: [1, 7]
+    } 
+    options.where.active = true;
+    const res = await models.Loan.findAll(options);
+    return res;
   }
 
 }
