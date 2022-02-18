@@ -1,10 +1,11 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 const { Op } = require('sequelize');
-
+const PaymentsService = require('./payments-service');
 
 class LoansService {
   constructor(){
+    this.paymentsService = new PaymentsService();
   }
 
   async findAll(query){
@@ -13,9 +14,11 @@ class LoansService {
 
   async findById(id) {
     const model = await models.Loan.findByPk(id);
+    // exist
     if (!model) {
       throw boom.notFound('Loan not found');
     }
+    // active 
     if (model.active === false) {
       throw boom.notFound('Loan not found');
     }
@@ -44,14 +47,43 @@ class LoansService {
     return { id };
   }
 
+  // Business Logic
   async approve(id, changes) {
+
+    // validar que el prestamo exista y activo = true
+    const model = await this.findById(id); 
+    //validar que el prestamo sea status 3 = Solicitado para aprobar
+    // si no es status 3, retornar error de no permitido.
+
     changes.statusId = 4;
     changes.approveAt = Date.now();
-    const model = await this.findById(id);  
+    
+
+
+    // create 23 payments
+    const data = {};
+    data.amount = model.dailyPay;
+    data.loanId = model.id;
+    data.customerId = model.customerId;
+    data.moneyCollectorId = model.moneyCollectorId;
+    data.coordinatorId = model.coordinatorId;
+    data.statusId = 2;
+    
+    let date = new Date(Date.now());
+    for (let i = 1; i < 24; i++) {
+      //sum one day
+      date.setDate(date.getDate() + 1);
+      if (date.getDay() === 0) {
+        date.setDate(date.getDate() + 1);
+      }
+      data.scheduledPaymentAt = date;
+      await this.paymentsService.create(data); 
+    }
+
     const res = await model.update(changes)
     return res;
   }
-  // Business Logic
+
   async findByCustomer(customerId){
     const options = {
       where: {}
