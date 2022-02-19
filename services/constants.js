@@ -14,7 +14,8 @@ const STATUS = {
 const LOAN_CONDITIONS = {
   profitPercentage: 15,
   paydays: 23,
-  profitPercentageForTotalDebt: 1.15
+  profitPercentageForTotalDebt: 1.15,
+  daysOfGrace: 1
 }
 
 module.exports = {DOMINGO, STATUS, LOAN_CONDITIONS};

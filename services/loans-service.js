@@ -2,7 +2,7 @@ const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 const { Op } = require('sequelize');
 const PaymentsService = require('./payments-service');
-const { DOMINGO, STATUS, LOAN_CONDITIONS } = require('./constants');
+const { STATUS, LOAN_CONDITIONS } = require('./constants');
 
 class LoansService {
   constructor(){
@@ -50,33 +50,22 @@ class LoansService {
 
   // Business Logic
   async approve(id, changes) {
-
-    // validar que el prestamo exista y activo = true
-    const model = await this.findById(id); 
     let res = null;
-    //validar que el prestamo sea status 3 = Solicitado para aprobar
-    // si no es status 3, retornar error de no permitido.
+    // find loan
+    const model = await this.findById(id); 
+    // validate loan status
     if (model.statusId === STATUS.requested) {
+      // create payments
+      await this.paymentsService.createPayments(
+        model.dailyPay, 
+        model.id, 
+        model.customerId,
+        model.moneyCollectorId,
+        model.coordinatorId
+      );
+      // approve loan
       changes.statusId = STATUS.passed;
       changes.approveAt = Date.now();
-      const data = {};
-      data.amount = model.dailyPay;
-      data.loanId = model.id;
-      data.customerId = model.customerId;
-      data.moneyCollectorId = model.moneyCollectorId;
-      data.coordinatorId = model.coordinatorId;
-      data.statusId = STATUS.pending;
-      // create 23 payments
-      let date = new Date(Date.now());
-      for (let i = 0; i < 23; i++) {
-        //sum one day
-        date.setDate(date.getDate() + 1);
-        if (date.getDay() === DOMINGO) {
-          date.setDate(date.getDate() + 1);
-        }
-        data.scheduledPaymentAt = date;
-        await this.paymentsService.create(data); 
-      }
       res = await model.update(changes)     
     } else {
       throw boom.notAcceptable('The loan is not in requested status...');
@@ -135,7 +124,8 @@ class LoansService {
     options.where.active = true;
 
     return options;
-  }
-}
+  };
+
+};
 
 module.exports = LoansService;
