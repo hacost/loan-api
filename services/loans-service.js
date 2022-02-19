@@ -2,6 +2,7 @@ const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 const { Op } = require('sequelize');
 const PaymentsService = require('./payments-service');
+const { DOMINGO, STATUS, LOAN_CONDITIONS } = require('./constants');
 
 class LoansService {
   constructor(){
@@ -55,8 +56,8 @@ class LoansService {
     let res = null;
     //validar que el prestamo sea status 3 = Solicitado para aprobar
     // si no es status 3, retornar error de no permitido.
-    if (model.statusId === 3) {
-      changes.statusId = 4;
+    if (model.statusId === STATUS.requested) {
+      changes.statusId = STATUS.passed;
       changes.approveAt = Date.now();
       const data = {};
       data.amount = model.dailyPay;
@@ -64,13 +65,13 @@ class LoansService {
       data.customerId = model.customerId;
       data.moneyCollectorId = model.moneyCollectorId;
       data.coordinatorId = model.coordinatorId;
-      data.statusId = 2;
+      data.statusId = STATUS.pending;
       // create 23 payments
       let date = new Date(Date.now());
       for (let i = 0; i < 23; i++) {
         //sum one day
         date.setDate(date.getDate() + 1);
-        if (date.getDay() === 0) {
+        if (date.getDay() === DOMINGO) {
           date.setDate(date.getDate() + 1);
         }
         data.scheduledPaymentAt = date;
@@ -89,7 +90,7 @@ class LoansService {
     }
     options.where.customerId = customerId,
     options.where.statusId = {
-      [Op.notIn]: [1, 7]
+      [Op.notIn]: [STATUS.cancelled, STATUS.paidOut]
     } 
     options.where.active = true;
     const res = await models.Loan.findAll(options);
@@ -98,10 +99,10 @@ class LoansService {
 
   async loanCalculate(data) {
     // calculate
-    data.totalDebt = data.amount * 1.15;
+    data.totalDebt = data.amount * LOAN_CONDITIONS.profitPercentageForTotalDebt;
     data.balance = data.totalDebt;
-    data.profit = (data.amount * 15) / 100;
-    data.dailyPay = data.totalDebt / 23;
+    data.profit = (data.amount * LOAN_CONDITIONS.profitPercentage) / 100;
+    data.dailyPay = data.totalDebt / LOAN_CONDITIONS.paydays;
     return data;
   }
 
