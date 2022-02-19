@@ -31,7 +31,7 @@ class LoansService {
     if (loans.length == 0 ) {
       return await models.Loan.create(await this.loanCalculate(data));   
     } else {
-      throw boom.notAcceptable('Have Loan active...');
+      throw boom.notAcceptable('Have an active loan...');
     }
   }
 
@@ -52,35 +52,34 @@ class LoansService {
 
     // validar que el prestamo exista y activo = true
     const model = await this.findById(id); 
+    let res = null;
     //validar que el prestamo sea status 3 = Solicitado para aprobar
     // si no es status 3, retornar error de no permitido.
-
-    changes.statusId = 4;
-    changes.approveAt = Date.now();
-    
-
-
-    // create 23 payments
-    const data = {};
-    data.amount = model.dailyPay;
-    data.loanId = model.id;
-    data.customerId = model.customerId;
-    data.moneyCollectorId = model.moneyCollectorId;
-    data.coordinatorId = model.coordinatorId;
-    data.statusId = 2;
-    
-    let date = new Date(Date.now());
-    for (let i = 1; i < 24; i++) {
-      //sum one day
-      date.setDate(date.getDate() + 1);
-      if (date.getDay() === 0) {
+    if (model.statusId === 3) {
+      changes.statusId = 4;
+      changes.approveAt = Date.now();
+      const data = {};
+      data.amount = model.dailyPay;
+      data.loanId = model.id;
+      data.customerId = model.customerId;
+      data.moneyCollectorId = model.moneyCollectorId;
+      data.coordinatorId = model.coordinatorId;
+      data.statusId = 2;
+      // create 23 payments
+      let date = new Date(Date.now());
+      for (let i = 0; i < 23; i++) {
+        //sum one day
         date.setDate(date.getDate() + 1);
+        if (date.getDay() === 0) {
+          date.setDate(date.getDate() + 1);
+        }
+        data.scheduledPaymentAt = date;
+        await this.paymentsService.create(data); 
       }
-      data.scheduledPaymentAt = date;
-      await this.paymentsService.create(data); 
+      res = await model.update(changes)     
+    } else {
+      throw boom.notAcceptable('The loan is not in requested status...');
     }
-
-    const res = await model.update(changes)
     return res;
   }
 
