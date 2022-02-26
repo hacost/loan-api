@@ -6,7 +6,7 @@ function logErrors (error, req, res, next) {
   next(error);
 }
 
-function errorHandler (error, req, res) {
+function errorHandler (error, req, res, next) {
   res.status(500).json({
     message: error.message,
     stack: error.stack,

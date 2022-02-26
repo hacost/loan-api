@@ -2,16 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes/router-api');
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middleware/error-handler');
+const { checkApiKey }  = require('./middleware/auth-handler');
+
 const app = express();
 const port = process.env.PORT || 3000;
 const whiteList = ['http://127.0.0.1:5500','https://myapp.com'];
 
 //use json middleware
 app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('Hello world in express js');
-});
 
 
 // use middleware cors
@@ -25,6 +23,15 @@ const options = {
   }
 }
 app.use(cors(options));
+
+
+app.get('/',  (req, res) => {
+  res.send('Hello world in express js');
+});
+
+app.get('/nueva-ruta', checkApiKey, (req, res) => {
+  res.send('Hello new path...');
+}); 
 
 //use router api 
 routerApi(app);
