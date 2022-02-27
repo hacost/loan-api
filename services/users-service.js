@@ -1,4 +1,5 @@
 const boom = require('@hapi/boom');
+
 const { models } = require('../libs/sequelize');
 
 class UsersService {
@@ -26,6 +27,8 @@ class UsersService {
 
   async create(data){
     const newRecord = await models.User.create(data);
+    //Delete password to don't send it when created
+    delete newRecord.dataValues.password;
     return newRecord;
   }
 
@@ -40,7 +43,6 @@ class UsersService {
     await model.destroy();
     return { id };
   }
-
 }
 
 module.exports = UsersService;

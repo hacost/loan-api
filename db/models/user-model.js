@@ -1,4 +1,6 @@
 const { Model, DataTypes} = require('sequelize');
+const bcrypt = require('bcrypt');
+
 const { ROLE_TABLE } = require('./role-model');
 const USER_TABLE = 'users';
 
@@ -73,9 +75,19 @@ class User extends Model {
       sequelize,
       tableName: USER_TABLE,
       modelName: 'User',
-      timestamps: false
+      timestamps: false,
+      hooks: {
+        beforeCreate: async (user) => {
+          const hashedPassword = await hashPassword(user.password);
+          user.password = hashedPassword;
+        }
+      }
     }
   }
+}
+
+async function hashPassword(password) {
+  return await bcrypt.hash(password, 10);
 }
 
 module.exports = { User, UserSchema, USER_TABLE };

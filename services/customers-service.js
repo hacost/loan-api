@@ -41,6 +41,8 @@ class CustomersService {
       //to create costumer and user 
       include: ['user']
     });
+    //Delete password to don't send it when created
+    delete newRecord.dataValues.user.dataValues.password;
     return newRecord;
   }
 
