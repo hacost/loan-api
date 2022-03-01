@@ -1,5 +1,5 @@
 const boom = require('@hapi/boom');
-const { models } = require('../libs/sequelize');
+const { models } = require('../config/db-config');
 const { DOMINGO, STATUS, LOAN_CONDITIONS } = require('./constants');
 
 class PaymentsService {
