@@ -9,7 +9,7 @@ router.get('/', validatorHandler(queryParamsValidator, 'query'), controller.find
 router.get('/:id', validatorHandler(getValidator, 'params'), controller.findById);
 router.post('/', validatorHandler(createValidator, 'body'), controller.create);
 router.patch('/:id', validatorHandler(getValidator, 'params'), validatorHandler(updateValidator, 'body'), controller.update);
-router.patch('/approve/:id', validatorHandler(getValidator, 'params'), validatorHandler(approveValidator, 'body'), controller.approve);
+router.post('/approve/', validatorHandler(approveValidator, 'body'), controller.approve);
 router.delete('/:id', validatorHandler(getValidator, 'params'), controller.delete_);
 
 module.exports = router;

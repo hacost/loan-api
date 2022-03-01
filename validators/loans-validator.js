@@ -56,6 +56,7 @@ const queryParamsValidator = Joi.object({
 });
 
 const approveValidator = Joi.object({
+  id: id.required(),
   approveReason: approveReason.required(),
   approvedId: approvedId.required(),
 });
