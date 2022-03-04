@@ -2,19 +2,23 @@ const { Sequelize } = require('sequelize');
 const config = require('./config');
 const setupModels = require('../db/models/setup-models');
 
-const USER = encodeURIComponent(config.dbUser);
-const PASSWORD = encodeURIComponent(config.dbPassword);
-const DB_NAME = encodeURIComponent(config.dbName);
-
-const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${DB_NAME}`;
-
-const sequelize = new Sequelize(URI, {
+const options = {
   dialect: 'postgres',
-  logging: true,
-});
+  logging: true
+}
 
+if (config.isProduction) {
+  options.dialectOptions = {
+    ssl: {
+      rejectUnauthorized: false
+    }
+  }
+}
+
+const sequelize = new Sequelize(config.dbUrl, options);
 // call setup models 
 setupModels(sequelize);
+
 // sync to create structure in database
 // not use in production
 //sequelize.sync();

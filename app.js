@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const config = require('./configs/config');
 const routerApi = require('./routes/router-api');
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middleware/error-handler');
 const { checkApiKey }  = require('./middleware/auth-handler');
 
 const app = express();
-const port = process.env.PORT || 3000;
 const whiteList = ['http://127.0.0.1:5500','https://myapp.com'];
 
 //use json middleware
@@ -42,7 +42,7 @@ app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log('Api running in port: ' + port);
+app.listen(config.apiPort, () => {
+  console.log('Api running in port: ' + config.apiPort);
 })
 
