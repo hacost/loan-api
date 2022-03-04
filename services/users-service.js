@@ -1,6 +1,6 @@
 const boom = require('@hapi/boom');
 
-const { models } = require('../config/db-config');
+const { models } = require('../configs/db-config');
 
 class UsersService {
   constructor(){

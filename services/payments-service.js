@@ -39,10 +39,10 @@ class PaymentsService {
   }
 
   // Business logic 
-  async createPayments(dailyPay, loanId, customerId, moneyCollectorId, coordinatorId){
+  async createPayments({id, dailyPay, customerId, moneyCollectorId, coordinatorId}){
     const data = {};
+    data.loanId = id;
     data.amount = dailyPay;
-    data.loanId = loanId;
     data.customerId = customerId;
     data.moneyCollectorId = moneyCollectorId;
     data.coordinatorId = coordinatorId;

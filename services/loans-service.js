@@ -56,13 +56,7 @@ class LoansService {
     // validate loan status
     if (model.statusId === STATUS.requested) {
       // create payments
-      await this.paymentsService.createPayments(
-        model.dailyPay, 
-        model.id, 
-        model.customerId,
-        model.moneyCollectorId,
-        model.coordinatorId
-      );
+      await this.paymentsService.createPayments(model);
       // approve loan
       changes.statusId = STATUS.passed;
       changes.approveAt = Date.now();
