@@ -1,4 +1,5 @@
 const express = require('express');
+const config = require('./../configs/config');
 const rolesRouter = require('./roles-router');
 const statusRouter = require('./status-router');
 const usersRouter = require('./users-router');
@@ -12,7 +13,7 @@ const paymentsRouter = require('./payments-router');
 const router = express.Router();
 
 function routerApi(app){
-  app.use('/api/v1', router);
+  app.use(config.apiVersion, router);
 
   router.use('/roles', rolesRouter);
   router.use('/status', statusRouter);
