@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const { models } = require('../configs/db-config');
+const { hidePassword } = require('./../utils/helper-util');
 
 class CustomersService {
 
@@ -41,8 +42,8 @@ class CustomersService {
       //to create costumer and user 
       include: ['user']
     });
-    //Delete password to don't send it when created
-    delete newRecord.dataValues.user.dataValues.password;
+    //hide password 
+    hidePassword(newRecord.dataValues.user);
     return newRecord;
   }
 

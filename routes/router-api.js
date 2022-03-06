@@ -9,6 +9,7 @@ const walletsRouter = require('./wallets-router');
 const moneyCollectorsRouter = require('./money-collectors-router');
 const loansRouter = require('./loans-router');
 const paymentsRouter = require('./payments-router');
+const authRouter = require('./auth-router');
 
 const router = express.Router();
 
@@ -24,6 +25,7 @@ function routerApi(app){
   router.use('/money-collectors', moneyCollectorsRouter);
   router.use('/loans', loansRouter);
   router.use('/payments', paymentsRouter);
+  router.use('/auth', authRouter);
 }
 
 module.exports = routerApi;

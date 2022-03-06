@@ -1,7 +1,6 @@
 const boom = require('@hapi/boom');
-
 const { models } = require('../configs/db-config');
-
+const { hidePassword } = require('./../utils/helper-util');
 class UsersService {
   constructor(){
   }
@@ -27,8 +26,7 @@ class UsersService {
 
   async create(data){
     const newRecord = await models.User.create(data);
-    //Delete password to don't send it when created
-    delete newRecord.dataValues.password;
+    hidePassword(newRecord);
     return newRecord;
   }
 
@@ -42,6 +40,13 @@ class UsersService {
     const model = await this.findById(id);
     await model.destroy();
     return { id };
+  }
+  // Business logic
+  async findByEmail(email) {
+    const res = await models.User.findOne({
+      where: { email: email, active: true } 
+    });
+    return res;
   }
 }
 
