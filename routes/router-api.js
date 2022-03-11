@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport');
+
 const config = require('./../configs/config');
 const rolesRouter = require('./roles-router');
 const statusRouter = require('./status-router');
@@ -21,7 +23,7 @@ function routerApi(app){
   router.use('/users', usersRouter);
   router.use('/customers', customersRouter);
   router.use('/coordinators', coordinatorsRouter);
-  router.use('/wallets', walletsRouter);
+  router.use('/wallets', passport.authenticate('jwt', { session: false }), walletsRouter);
   router.use('/money-collectors', moneyCollectorsRouter);
   router.use('/loans', loansRouter);
   router.use('/payments', paymentsRouter);
