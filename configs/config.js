@@ -8,6 +8,7 @@ const config = {
   apiKey: process.env.API_KEY,
   dbUrl: process.env.DATABASE_URL,
   privateKey: process.env.PRIVATE_KEY,
+  tokenExpiration: process.env.TOKEN_EXPIRATION,
 }
 
 module.exports = config;

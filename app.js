@@ -12,7 +12,6 @@ const whiteList = ['http://127.0.0.1:5500','https://myapp.com'];
 //use json middleware
 app.use(express.json());
 
-
 // use middleware cors
 const options = {
   origin: (origin, callback) =>{
@@ -24,7 +23,6 @@ const options = {
   }
 }
 app.use(cors(options));
-
 
 app.get('/',  (req, res) => {
   res.send('Hello world in express js');
