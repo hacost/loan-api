@@ -18,4 +18,11 @@ const LOAN_CONDITIONS = {
   daysOfGrace: 1
 }
 
-module.exports = {DOMINGO, STATUS, LOAN_CONDITIONS};
+const ROLES = {
+  customer: 1,
+  coordinator: 2,
+  debtCollector: 3,
+  admin: 4
+}
+
+module.exports = {DOMINGO, STATUS, LOAN_CONDITIONS, ROLES};
