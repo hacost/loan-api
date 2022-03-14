@@ -3,7 +3,7 @@ const validatorHandler = require('../middleware/validator-handler');
 const controller = require('../controllers/wallets-controller');
 const { createValidator, updateValidator, getValidator } = require('../validators/wallets-validator');
 const { checkRoles } = require('../middleware/auth-handler');
-const { ROLES } = require('../services/constants');
+const { ROLES } = require('../utils/constants');
 
 const router = express.Router();
 router.get('/', controller.findAll);

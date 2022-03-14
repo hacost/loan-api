@@ -2,7 +2,7 @@ const boom = require('@hapi/boom');
 const { models } = require('../configs/db-config');
 const { Op } = require('sequelize');
 const PaymentsService = require('./payments-service');
-const { STATUS, LOAN_CONDITIONS } = require('./constants');
+const { STATUS, LOAN_CONDITIONS } = require('../utils/constants');
 
 class LoansService {
   constructor(){

@@ -1,6 +1,6 @@
 const boom = require('@hapi/boom');
 const { models } = require('../configs/db-config');
-const { DOMINGO, STATUS, LOAN_CONDITIONS } = require('./constants');
+const { DOMINGO, STATUS, LOAN_CONDITIONS } = require('../utils/constants');
 
 class PaymentsService {
   constructor(){
