@@ -1,27 +1,16 @@
-const boom = require('@hapi/boom');
 const Strategy = require('passport-local').Strategy;
-const { verifyPassword, hidePassword } = require('../../utils/helper-util');
-const UserService = require('../../services/users-service');
+const Service = require('../../services/auth-service');
 
-const service = new UserService();
-const options = {
+const service = new Service();
+const optionsStrategy = {
   usernameField: 'email',
   passwordField: 'password'
 }
 const localStrategy = new Strategy(
-  options, 
+  optionsStrategy, 
   async (email, password, done) => {
   try {
-    const user = await service.findByEmail(email)
-    if(!user){
-      done(boom.notFound(), false)
-    }
-    const isMatch = await verifyPassword(password, user.password)
-    if(!isMatch){
-      done(boom.unauthorized(), false)
-    }
-    hidePassword(user);
-    done(null, user)
+    done(null, await service.getUser(email, password))
   } catch (error) {
     done(error, false)
   }

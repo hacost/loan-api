@@ -1,21 +1,12 @@
-const jwt = require('../auth/jwt');
+const Service = require('../services/auth-service');
 
-const authentication = async (req, res, next) => {
+const service = new Service();
+const login = async (req, res, next) => {
   try {
-    const user = req.user;
-    const token = jwt.signToken(getPayload(user));
-    res.json({user,token});
+    res.json(service.signToken(req.user));
   } catch (error) {
     next(error);
   }
 };
 
-function getPayload(user) {
-  const payload = {
-    sub: user.id,
-    role: user.roleId
-  }
-  return payload;
-}
-
-module.exports = {authentication};
+module.exports = {login};
