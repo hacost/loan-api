@@ -78,6 +78,9 @@ class User extends Model {
       hooks: {
         beforeCreate: async (user) => {
           user.password = await hashPassword(user.password);
+        },
+        beforeUpdate: async (user) => {
+          user.password = await hashPassword(user.password);
         }
       }
     }

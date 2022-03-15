@@ -33,6 +33,7 @@ class UsersService {
   async update(id, changes) {
     const model = await this.findById(id);
     const res = await model.update(changes)
+    hidePassword(res);
     return res;
   }
   
