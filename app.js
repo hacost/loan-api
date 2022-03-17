@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const config = require('./configs/config');
+const {apiConfig} = require('./configs/config');
 const routerApi = require('./routes/router-api');
 const { logErrors, errorHandler, boomErrorHandler, ormErrorHandler } = require('./middleware/error-handler');
 const { checkApiKey }  = require('./middleware/auth-handler');
@@ -41,7 +41,7 @@ app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(config.apiPort, () => {
-  console.log('Api running in port: ' + config.apiPort);
+app.listen(apiConfig.apiPort, () => {
+  console.log('Api running in port: ' + apiConfig.apiPort);
 })
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 
-const config = require('./../configs/config');
+const {apiConfig} = require('./../configs/config');
 const rolesRouter = require('./roles-router');
 const statusRouter = require('./status-router');
 const usersRouter = require('./users-router');
@@ -16,7 +16,7 @@ const authRouter = require('./auth-router');
 const router = express.Router();
 
 function routerApi(app){
-  app.use(config.apiVersion, router);
+  app.use(apiConfig.apiVersion, router);
 
   router.use('/roles', rolesRouter);
   router.use('/status', statusRouter);

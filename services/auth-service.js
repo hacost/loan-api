@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const boom = require('@hapi/boom');
-
-const config = require('../configs/config');
+const helper = require('../utils/helper-util');
+const {jwtConfig} = require('../configs/config');
 const Service = require('./users-service');
 
 const service = new Service();
@@ -12,7 +12,7 @@ class AuthService {
   //use static read-only properties to declare constant values that are scoped to a class
   static get jwtSignOptions() {
     return {
-      expiresIn: config.tokenExpiration,
+      expiresIn: jwtConfig.tokenExpiration,
     };
   }
 
@@ -21,11 +21,11 @@ class AuthService {
     if (!user) {
       throw boom.notFound();
     }
-    const isMatch = await this.verifyPassword(password, user.password);
+    const isMatch = helper.verifyPassword(password, user.password);
     if (!isMatch) {
       throw boom.unauthorized();
     }
-    this.hidePassword(user);
+    helper.hidePassword(user);
     return user;
   }
 
@@ -34,7 +34,7 @@ class AuthService {
       sub: user.id,
       role: user.roleId
     }
-    const token = jwt.sign(payload, config.privateKey, this.jwtSignOptions);
+    const token = jwt.sign(payload, jwtConfig.privateKey, this.jwtSignOptions);
     return {
       user,
       token
@@ -42,7 +42,7 @@ class AuthService {
   }
 
   verifyToken(token) {
-    return jwt.verify(token, config.privateKey);
+    return jwt.verify(token, jwtConfig.privateKey);
   }
 
 }

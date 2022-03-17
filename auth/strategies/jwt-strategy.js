@@ -1,8 +1,8 @@
 const {Strategy, ExtractJwt} = require('passport-jwt');
-const config = require('../../configs/config');
+const {jwtConfig} = require('../../configs/config');
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.privateKey
+  secretOrKey: jwtConfig.privateKey
 }
 
 const jwtStrategy = new Strategy(options, (payload, done) => {
