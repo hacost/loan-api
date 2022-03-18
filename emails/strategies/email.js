@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const {emailConfig} = require('../../configs/config');
 
-function getMagicTransporter () {
+function getTransporter () {
   const transport = nodemailer.createTransport({
     host: emailConfig.magicHost,
     port: emailConfig.magicPort,
@@ -23,8 +23,10 @@ const mailOptions = {
 
 const sendMail = async () => {
   try {
-      const transporter = getMagicTransporter();
-      await transporter.sendMail(mailOptions);      
+      const transporter = getTransporter();
+      await transporter.sendMail(mailOptions);     
+      console.log('email sent successfully')  
+ 
   } catch (error) {
     console.error(error);
   }
