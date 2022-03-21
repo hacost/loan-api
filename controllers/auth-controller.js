@@ -1,5 +1,5 @@
 const Service = require('../services/auth-service');
-const email =require('../emails/strategies/sendGrid');
+const email =require('../emails/strategies/nodeMailer');
 const service = new Service();
 const login = async (req, res, next) => {
   try {

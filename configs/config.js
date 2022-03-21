@@ -19,10 +19,12 @@ const jwtConfig = {
 
 const emailConfig = {
   emailFrom: process.env.EMAIL_FROM,
+  fromName: process.env.FROM_NAME,
   magicHost: process.env.SMTP_MAGIC_HOST,
   magicPort: process.env.SMTP_MAGIC_PORT,
   magicUser: process.env.SMTP_MAGIC_USER,
   magicPass: process.env.SMTP_MAGIC_PASSWORD,
+  mailerSendApiKey: process.env.MAILER_SEND_API_KEY,
   sendGridApiKey: process.env.SENDGRID_API_KEY
 }
 

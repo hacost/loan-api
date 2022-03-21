@@ -14,11 +14,13 @@ function getTransporter () {
 }
 
 const mailOptions = {
-  from: emailConfig.emailFrom,
-  to: 'hacost@hotmail.com',
-  subject: 'Test email',
-  text: 'Hello world',
-  html: '<b> Hello World...</b>'
+  from: `${emailConfig.fromName} <${emailConfig.emailFrom}>`,
+  to: 'sb.teres@hotmail.com',
+  cc: 'hector_acost@hotmail.com',
+  bcc: 'hacost@hotmail.com',
+  subject: 'Test email whit NodeMailer',
+  text: 'This is the text content',
+  html: '<b> This is the HTML content</b>'
 }
 
 const sendMail = async () => {
