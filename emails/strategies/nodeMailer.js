@@ -13,20 +13,20 @@ function getTransporter () {
   return transport;
 }
 
-const mailOptions = {
+const emailParams = {
   from: `${emailConfig.fromName} <${emailConfig.emailFrom}>`,
   to: 'sb.teres@hotmail.com',
   cc: 'hector_acost@hotmail.com',
   bcc: 'hacost@hotmail.com',
   subject: 'Test email whit NodeMailer',
-  text: 'This is the text content',
   html: '<b> This is the HTML content</b>'
 }
 
 const sendMail = async () => {
   try {
+    
       const transporter = getTransporter();
-      await transporter.sendMail(mailOptions);     
+      await transporter.sendMail(emailParams);     
       console.log('email sent successfully')  
  
   } catch (error) {

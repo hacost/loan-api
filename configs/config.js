@@ -25,7 +25,8 @@ const emailConfig = {
   magicUser: process.env.SMTP_MAGIC_USER,
   magicPass: process.env.SMTP_MAGIC_PASSWORD,
   mailerSendApiKey: process.env.MAILER_SEND_API_KEY,
-  sendGridApiKey: process.env.SENDGRID_API_KEY
+  sendGridApiKey: process.env.SENDGRID_API_KEY,
+  emailStrategy: process.env.EMAIL_STRATEGY
 }
 
 module.exports = {config, apiConfig, jwtConfig, emailConfig};
