@@ -15,7 +15,7 @@ const sendGrid = {
       await transporter.send(emailParams);    
       console.log('email sent successfully')  
   } catch (error) {
-    console.error(error);
+    console.log(`error: ${error.message}`);
     if (error.response) {
       console.error(error.response.body)
     }
