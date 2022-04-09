@@ -25,9 +25,13 @@ const ROLES = {
   admin: 4
 }
 
+
+
 const TEMPLATES = {
+  emailThank: 'email-thank.html',
   header: 'header.html',
   footer: 'footer.html',
-  content: 'content.html'
-}
+};
+
+
 module.exports = {DOMINGO, STATUS, LOAN_CONDITIONS, ROLES, TEMPLATES};

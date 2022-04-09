@@ -89,8 +89,6 @@ build/Release
 
 # Dependency directories
 node_modules/
-emails/templates/
-services/templates-service.js
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)

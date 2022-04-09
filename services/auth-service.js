@@ -4,6 +4,8 @@ const helper = require('../utils/helper-util');
 const {jwtConfig} = require('../configs/config');
 const UsersService = require('./users-service');
 const emailsService = require('./emails-service');
+const templatesService = require('./templates-service');
+const {TEMPLATES} = require('../utils/constants');
 const userService = new UsersService();
 
 //private
@@ -24,11 +26,11 @@ const authService = {
       throw boom.unauthorized();
     }
     await userService.update(user.id, {lastLogin: Date.now()});
-     emailsService.sendEmail({
+    emailsService.sendEmail({
       to: user.email,
       subject: `Hola Héctor`,
-      html: 'En está parte va a ir el Template HTML que voy a formar'
-    }); 
+      html: await templatesService.getTemplate(TEMPLATES.emailThank, {nombre_empresa:'Magic Intelligence'})
+    });   
   
     helper.hidePassword(user);
     return user;
