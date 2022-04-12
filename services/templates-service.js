@@ -30,7 +30,7 @@ const templatesService = {
         templateParams);  
     } catch (error) {
       console.log(`error: ${error.message}`);
-      throw 'Error getTemplate';
+      throw 'Error getTemplate ';
     }     
   }
 };

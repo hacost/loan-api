@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const {emailConfig} = require('../../configs/config');
-
-function getTransporter () {
+// private
   const transport = nodemailer.createTransport({
     host: emailConfig.magicHost,
     port: emailConfig.magicPort,
@@ -10,28 +9,23 @@ function getTransporter () {
       pass: emailConfig.magicPass
     }
   });
-  return transport;
-}
 
-const emailParams = {
-  from: `${emailConfig.fromName} <${emailConfig.emailFrom}>`,
-  to: 'sb.teres@hotmail.com',
-  cc: 'hector_acost@hotmail.com',
-  bcc: 'hacost@hotmail.com',
-  subject: 'Test email whit NodeMailer',
-  html: '<b> This is the HTML content</b>'
-}
+// public 
+const nodeMailer = {
+  async sendMail(emailParams, sandboxMode = false) {
+    try {
+        emailParams.from = `${emailConfig.fromName} <${emailConfig.emailFrom}>`;
+        if (!sandboxMode) {
+          await transport.sendMail(emailParams);     
+          console.log('email sent successfully')            
+        } else {
+          //sandboxMode
 
-const sendMail = async () => {
-  try {
-    
-      const transporter = getTransporter();
-      await transporter.sendMail(emailParams);     
-      console.log('email sent successfully')  
- 
-  } catch (error) {
-    console.log(`error: ${error.message}`);
+        }  
+    } catch (error) {
+      console.log(`error: ${error.message}`);
+    }
   }
 }
 
-exports.sendMail = () =>  sendMail();
+module.exports = nodeMailer;

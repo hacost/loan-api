@@ -19,7 +19,7 @@ const authService = {
   async login(email, password) {
     const user = await userService.findByEmail(email);
     if (!user) {
-      throw boom.notFound();
+      throw boom.unauthorized();
     }
     const isMatch = helper.verifyPassword(password, user.password);
     if (!isMatch) {
