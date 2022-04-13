@@ -20,7 +20,6 @@ const nodeMailer = {
           console.log('email sent successfully')            
         } else {
           //sandboxMode
-
         }  
     } catch (error) {
       console.log(`error: ${error.message}`);

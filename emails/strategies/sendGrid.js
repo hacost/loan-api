@@ -1,7 +1,7 @@
 const sgMail = require('@sendgrid/mail');
 const {emailConfig} = require('../../configs/config');
 //private
-const transporter = sgMail.setApiKey(emailConfig.sendGridApiKey);
+const transport = sgMail.setApiKey(emailConfig.sendGridApiKey);
 // public
 const sendGrid = {
   async sendMail (emailParams, sandboxMode = false) {
@@ -12,7 +12,7 @@ const sendGrid = {
           enable: sandboxMode
         }
       }
-      await transporter.send(emailParams);    
+      await transport.send(emailParams);    
       console.log('email sent successfully')  
   } catch (error) {
     console.log(`error: ${error.message}`);

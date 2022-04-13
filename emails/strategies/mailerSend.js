@@ -3,42 +3,44 @@ const EmailParams = require("mailersend").EmailParams;
 const MailerSend = require("mailersend");
 const {emailConfig} = require('../../configs/config');
 
-function getTransporter () {
-  const transport = new MailerSend({
+const transport = new MailerSend({
     api_key: emailConfig.mailerSendApiKey,
-  });
-  return transport;
-}
-
-const recipients = [
-  new Recipient('sb.teres@gmail.com', 'Tere')
-];
-
-const cc = [
-  new Recipient('he.acost@gmail.com', 'Adrian')
-];
-const bcc = [
-  new Recipient('hacost@hotmail.com', 'Héctor')
-];
-
-const emailParams = new EmailParams()
+});
+ 
+const processEmailParams = (emailParams) => {
+  const recipients = [
+    new Recipient(emailParams.to)
+  ];
+  
+  const cc = [
+    new Recipient(emailParams.cc)
+  ];
+  const bcc = [
+    new Recipient(emailParams.bcc)
+  ];
+  return new EmailParams()
       .setFrom(emailConfig.emailFrom)
       .setFromName(emailConfig.fromName)
       .setRecipients(recipients)
       .setCc(cc)
       .setBcc(bcc)
-      .setSubject('Test email whit mailer send')
-      .setHtml('This is the HTML content')
-      .setText('This is the text content');
-
-const sendMail = async () => {
-  try {
-      const transporter = getTransporter();
-      await transporter.send(emailParams);    
-      console.log('email sent successfully')  
-  } catch (error) {
-    console.error(error);
+      .setSubject(emailParams.subject)
+      .setHtml(emailParams.html);
+} 
+// public 
+const mailerSend = {
+ async sendMail (emailParams, sandboxMode = false) {
+    try {
+        if (!sandboxMode) {
+          console.log(await transport.send(processEmailParams(emailParams)));    
+          console.log('email sent successfully')           
+        } else {
+          //sandboxMode
+        }
+     } catch (error) {
+      console.error(error);
+    }
   }
 }
 
-exports.sendMail = () =>  sendMail();
+module.exports = mailerSend;
