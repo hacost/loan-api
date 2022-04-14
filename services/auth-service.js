@@ -27,9 +27,9 @@ const authService = {
     }
     await userService.update(user.id, {lastLogin: Date.now()});
     emailsService.sendEmail({
-      to: `${user.email}`,
-      cc: `he.acost@gmail.com`,
-      subject: `Hola `,
+      to: `${user.email}, hector@magicintelligence.com`,
+      cc: `he.acost@gmail.com, hector_acost@hotmail.com`,
+      subject: `Test email`,
       html: await templatesService.getTemplate(TEMPLATES.emailThank, {nombre_empresa:'Magic Intelligence'})
     });   
   

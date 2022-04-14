@@ -12,4 +12,10 @@ async function hidePassword(model) {
   delete model.dataValues.password
 } 
 
-module.exports = {hashPassword, verifyPassword, hidePassword}
+const removeWhiteSpace = (string) => {
+  return string.replace(/\s/g, '');
+}
+const stringToArray = (string) => {
+  return removeWhiteSpace(string).split(',');
+}
+module.exports = {hashPassword, verifyPassword, hidePassword, stringToArray}

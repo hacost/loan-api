@@ -1,13 +1,10 @@
 const sgMail = require('@sendgrid/mail');
 const {emailConfig} = require('../../configs/config');
+const {stringToArray} = require('../../utils/helper-util');
+
 //private
 const transport = sgMail.setApiKey(emailConfig.sendGridApiKey);
-const removeWhiteSpace = (string) => {
-  return string.replace(/\s/g, '');
-}
-const stringToArray = (string) => {
-  return removeWhiteSpace(string).split(',');
-}
+
 const processEmailParams = (emailParams) => {
   emailParams.from = `${emailConfig.fromName} <${emailConfig.emailFrom}>`;  
   emailParams.to = stringToArray(emailParams.to);
