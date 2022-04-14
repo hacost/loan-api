@@ -6,12 +6,11 @@ const {emailConfig} = require('../../configs/config');
 const transport = new MailerSend({
     api_key: emailConfig.mailerSendApiKey,
 });
- 
+
 const processEmailParams = (emailParams) => {
   const recipients = [
     new Recipient(emailParams.to)
   ];
-  
   const cc = [
     new Recipient(emailParams.cc)
   ];
@@ -32,8 +31,8 @@ const mailerSend = {
  async sendMail (emailParams, sandboxMode = false) {
     try {
         if (!sandboxMode) {
-          console.log(await transport.send(processEmailParams(emailParams)));    
-          console.log('email sent successfully')           
+         await transport.send(processEmailParams(emailParams)); 
+         console.log('email sent successfully')           
         } else {
           //sandboxMode
         }
