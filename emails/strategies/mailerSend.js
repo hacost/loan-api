@@ -40,8 +40,8 @@ const mailerSend = {
     try {
       if (emailParams.to) {
         if (!sandboxMode) {
-          await transport.send(processEmailParams(emailParams)); 
-          console.log('email sent successfully')           
+         await transport.send(processEmailParams(emailParams)); 
+         console.log('email sent successfully')           
         } else {
           //sandboxMode
         }        

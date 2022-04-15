@@ -14,13 +14,17 @@ const {emailConfig} = require('../../configs/config');
 const nodeMailer = {
   async sendMail(emailParams, sandboxMode = false) {
     try {
+      if (emailParams.to) {
         emailParams.from = `${emailConfig.fromName} <${emailConfig.emailFrom}>`;
         if (!sandboxMode) {
           await transport.sendMail(emailParams);     
           console.log('email sent successfully')            
         } else {
           //sandboxMode
-        }  
+        }         
+      } else {
+        throw new Error('emailParams.to is Empty');
+      } 
     } catch (error) {
       console.log(`error: ${error.message}`);
     }
