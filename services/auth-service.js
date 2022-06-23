@@ -27,10 +27,15 @@ const authService = {
     }
     await userService.update(user.id, {lastLogin: Date.now()});
     emailsService.sendEmail({
-      to: `${user.email}`,
-      cc: `hector@magicintelligence.com, he.acost@gmail.com`,
-      subject: `Email test`,
-      html: await templatesService.getTemplate(TEMPLATES.emailThank, {nombre_empresa:'Magic Intelligence'})
+      to: `${user.email}, he.acost@gmail.com`,
+      cc: `hector@magicintelligence.com`,
+      subject: `Comprobante de Pago`,
+      html: await templatesService.getTemplate(TEMPLATES.main, 
+        {company_name:'Magic Intelligence', 
+        company_address:'Jeronimo Treviño 613, Apodaca NL, 66600', 
+        company_logo:'https://res.cloudinary.com/hmyi1rv5d/image/upload/v1625794226/public/Logo_header_correo_pxlucu.png',
+        email_title:'Comprobante de Pago'
+       })
     });   
   
     helper.hidePassword(user);

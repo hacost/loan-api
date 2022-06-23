@@ -25,10 +25,8 @@ const ROLES = {
   admin: 4
 }
 
-
-
 const TEMPLATES = {
-  emailThank: 'email-thank.html',
+  main: 'main.html',
   header: 'header.html',
   footer: 'footer.html',
 };

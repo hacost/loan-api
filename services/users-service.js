@@ -1,6 +1,6 @@
 const boom = require('@hapi/boom');
 const { models } = require('../configs/db-config');
-const { hidePassword } = require('./../utils/helper-util');
+const { hidePassword } = require('../utils/helper-util');
 class UsersService {
   constructor(){
   }
@@ -42,6 +42,7 @@ class UsersService {
     await model.destroy();
     return { id };
   }
+  
   // Business logic
   async findByEmail(email) {
     const res = await models.User.findOne({
@@ -49,6 +50,7 @@ class UsersService {
     });
     return res;
   }
+
 }
 
 module.exports = UsersService;

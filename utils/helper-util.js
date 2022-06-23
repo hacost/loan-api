@@ -1,5 +1,9 @@
 const bcrypt = require('bcrypt');
-
+//private
+const removeWhiteSpace = (string) => {
+  return string.replace(/\s/g, '');
+}
+//public
 async function hashPassword(password) {
   return await bcrypt.hash(password, 10);
 }
@@ -12,9 +16,6 @@ async function hidePassword(model) {
   delete model.dataValues.password
 } 
 
-const removeWhiteSpace = (string) => {
-  return string.replace(/\s/g, '');
-}
 const stringToArray = (string) => {
   return removeWhiteSpace(string).split(',');
 }
