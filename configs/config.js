@@ -1,9 +1,12 @@
 require('dotenv').config();
 
 const config = {
-  env: process.env.NODE_ENV || 'dev',
+  env: process.env.NODE_ENV || 'development',
   isProduction: process.env.NODE_ENV === 'production',
-  dbUrl: process.env.DATABASE_URL,
+}
+
+const dataBaseConfig = {
+   dbUrl: process.env.DATABASE_URL,
 }
 
 const apiConfig = {
@@ -29,4 +32,4 @@ const emailConfig = {
   emailStrategy: process.env.EMAIL_STRATEGY
 }
 
-module.exports = {config, apiConfig, jwtConfig, emailConfig};
+module.exports = {config, dataBaseConfig, apiConfig, jwtConfig, emailConfig};

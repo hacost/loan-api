@@ -1,12 +1,15 @@
-const config = require('../configs/config');
-
+const { dataBaseConfig } = require('../configs/config');
 module.exports = {
   development: {
-    url: config.dbUrl, 
-    dialect: 'postgres',
+    url: dataBaseConfig.dbUrl,
+    dialect: 'postgres'
+  },
+  test: {
+    url: dataBaseConfig.dbUrl,
+    dialect: 'postgres'
   },
   production: {
-    url: config.dbUrl, 
+    url: dataBaseConfig.dbUrl,
     dialect: 'postgres',
     dialectOptions: {
       ssl: {

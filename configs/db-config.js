@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const {config} = require('./config');
+const {dataBaseConfig, config} = require('./config');
 const setupModels = require('../db/models/setup-models');
 
 const options = {
@@ -15,7 +15,7 @@ if (config.isProduction) {
   }
 }
 
-const sequelize = new Sequelize(config.dbUrl, options);
+const sequelize = new Sequelize(dataBaseConfig.dbUrl, options);
 // call setup models 
 setupModels(sequelize);
 
